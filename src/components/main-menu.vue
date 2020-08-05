@@ -1,18 +1,21 @@
-
 <template>
   <div
     class="main-menu container mx-auto font-bold md:flex justify-center md:justify-between items-center py-3 md:py-10"
   >
-    <router-link class="hidden text-center md:inline text-3xl" :to="'/'">Clock Clock</router-link>
+    <router-link class="hidden text-center md:inline text-3xl" :to="'/'"
+      >CSS Clock</router-link
+    >
 
     <ul class="flex mr-3">
       <li>
-        <a href="https://sandeep.ramgolam.com/projects" target="_blank">View other projects →</a>
+        <a href="https://sandeep.ramgolam.com/projects" target="_blank"
+          >View other projects →</a
+        >
         <!-- <SvgMenuBg /> -->
       </li>
     </ul>
   </div>
-</template> 
+</template>
 
 <style lang="scss" scoped>
 .main-menu {
