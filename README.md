@@ -1,29 +1,9 @@
-# css-clock
+# CSS Clock
 
-## Project setup
+![An open source player](https://i.imgur.com/hSibfdF.gif)
 
-```
-npm install
-```
+## I saw an awesome clock on twitter and I thought it can probably be done in CSS.
 
-### Compiles and hot-reloads for development
+# [View CSS Version](https://clock-css.netlify.app/)
 
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# [View Original Video Animation](https://twitter.com/AMAZlNGSCIENCE/status/1290137381601857537?s=20)
