@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container mx-auto text-sm  tracking-wide py-10 flex justify-center md:justify-between"
+    class="container mx-auto text-sm  px-8 md:px-0 space-y-10 md:space-y-0 text-center md:text-left tracking-wide py-10 md:flex justify-center md:justify-between"
   >
     <div>
       <p class="font-bold">What is this?</p>
@@ -15,8 +15,8 @@
       </p>
     </div>
     <ul class="menu">
-      <li>
-        <a href="https://github.com/MrSunshyne/css-clock" target="_blank"
+      <li class="w-full">
+        <a class="block" href="https://github.com/MrSunshyne/css-clock" target="_blank"
           >View the code on GitHub</a
         >
       </li>
@@ -29,7 +29,7 @@
   display: flex;
 
   a {
-    @apply pl-2;
+    // @apply pl-2;
 
     &:hover {
       text-decoration: underline;
