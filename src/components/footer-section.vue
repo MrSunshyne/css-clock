@@ -9,7 +9,7 @@
         <a
           class="underline hover:text-gray-800"
           target="_blank"
-          href="https://twitter.com/AMAZlNGSCIENCE/status/1290137381601857537?s=20"
+          href="https://www.humanssince1982.com/"
           >See the original here</a
         >
       </p>
