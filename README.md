@@ -6,4 +6,6 @@
 
 # [View CSS Version](https://clock-css.netlify.app/)
 
-# [View Original Video Animation](https://twitter.com/AMAZlNGSCIENCE/status/1290137381601857537?s=20)
+### [Inspired from Video Animation](https://web.archive.org/web/20200803040834/https://twitter.com/AMAZlNGSCIENCE/status/1290137381601857537)
+
+### The twitter above itself has been taken down, but it was a clip of [this amazing work](https://www.humanssince1982.com/) 
