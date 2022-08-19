@@ -67,6 +67,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 #clock {
   --size: 50px;
   display: grid;
@@ -101,7 +102,7 @@ export default {
     top: 50%;
     left: 50%;
     transform-origin: left center;
-    transition: 5s linear;
+    transition: var(--speed, 5s) linear;
   }
 
   &:before {
