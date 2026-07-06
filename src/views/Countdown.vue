@@ -4,7 +4,7 @@
       <input type="text" inputmode="numeric" v-model.number="countdownDuration" class="border rounded-full text-3xl  w-24 text-center" @click="stop()" />
     </div>
     <VueCountdown v-if="countdown > 0" :time="countdown" @end="start()" >
-      <template slot-scope="props">
+      <template v-slot="props">
         <div
              role="img" aria-label="A countdown timer made of tiny analog clock faces"
              class="clock-frame grid grid-cols-2 lg:grid-cols-6 justify-center items-center">
