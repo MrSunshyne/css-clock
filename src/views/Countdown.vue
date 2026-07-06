@@ -53,24 +53,6 @@ export default {
 
     stop() {
       this.$confetti.stop();
-    },
-
-    love() {
-      this.$confetti.update({
-        particles: [
-          {
-            type: 'heart',
-          },
-          {
-            type: 'circle',
-          },
-        ],
-        defaultColors: [
-          'red',
-          'pink',
-          '#ba0000'
-        ],
-      });
     }
   },
 }
