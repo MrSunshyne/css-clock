@@ -1,5 +1,5 @@
 <template>
-  <div class="home items-center grid justify-center" v-if="time">
+  <div class="home items-center grid justify-center" v-if="time" role="img" aria-label="A clock made of tiny analog clock faces, showing the current time">
     <div
       class="clock-frame grid grid-cols-2 lg:grid-cols-6 justify-center items-center"
     >

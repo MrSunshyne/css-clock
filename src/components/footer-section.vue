@@ -9,6 +9,7 @@
         <a
           class="underline hover:text-gray-800"
           target="_blank"
+          rel="noopener noreferrer"
           href="https://www.humanssince1982.com/"
           >See the original here</a
         >
@@ -16,7 +17,7 @@
     </div>
     <ul class="menu">
       <li class="w-full">
-        <a class="block" href="https://github.com/MrSunshyne/css-clock" target="_blank"
+        <a class="block" href="https://github.com/MrSunshyne/css-clock" target="_blank" rel="noopener noreferrer"
           >View the code on GitHub</a
         >
       </li>

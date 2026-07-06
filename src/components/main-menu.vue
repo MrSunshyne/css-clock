@@ -8,10 +8,9 @@
 
     <ul class="flex mr-3">
       <li>
-        <a href="https://sandeep.ramgolam.com/projects" target="_blank"
+        <a href="https://sandeep.ramgolam.com/projects" target="_blank" rel="noopener noreferrer"
           >View other projects →</a
         >
-        <!-- <SvgMenuBg /> -->
       </li>
     </ul>
   </div>

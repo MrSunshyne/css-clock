@@ -6,6 +6,7 @@
     <VueCountdown :time="countdown" @end="start()" >
       <template slot-scope="props">
         <div
+             role="img" aria-label="A countdown timer made of tiny analog clock faces"
              class="clock-frame grid grid-cols-2 lg:grid-cols-6 justify-center items-center">
           <number :digit="parseInt(pad(props.hours)[0])" />
           <number :digit="parseInt(pad(props.hours)[1])" />
