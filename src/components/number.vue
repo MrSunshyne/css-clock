@@ -120,10 +120,11 @@ export default {
 
   div {
     position: relative;
-    border: 1px solid gray;
+    border: 1px solid var(--face-outline, gray);
     height: var(--size);
     width: var(--size);
     border-radius: 100%;
+    transition: border-color 0.3s;
 
     &:after,
     &:before {
@@ -131,7 +132,7 @@ export default {
       content: " ";
       width: calc(var(--size) / 2);
       height: calc(var(--size) / 10);
-      background: black;
+      background: var(--ink, black);
       top: 50%;
       left: 50%;
       transform-origin: left center;

@@ -63,4 +63,10 @@ export default {
 .countdown {
   --speed : 0.5s;
 }
+
+input {
+  background: var(--panel);
+  color: inherit;
+  border: 1px solid var(--face-outline);
+}
 </style>

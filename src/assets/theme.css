@@ -1,0 +1,33 @@
+/*
+ * Theme palette. Light by default, dark when the OS asks for it.
+ * Both palettes reuse the Tailwind v1 grays already used by the app.
+ *
+ * data-theme on <html> wins over the OS preference — nothing sets it yet,
+ * but it's the hook for a manual theme toggle.
+ */
+
+:root {
+  color-scheme: light;
+  --bg: #edf2f7; /* gray-200 */
+  --ink: #000;
+  --face-outline: gray;
+  --panel: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #1a202c; /* gray-900 */
+    --ink: #edf2f7; /* gray-200 */
+    --face-outline: #4a5568; /* gray-700 */
+    --panel: #2d3748; /* gray-800 */
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1a202c;
+  --ink: #edf2f7;
+  --face-outline: #4a5568;
+  --panel: #2d3748;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen flex-col bg-gray-200">
+  <div class="app-shell flex min-h-screen flex-col">
     <main-menu></main-menu>
     <router-view class="container mx-auto flex-grow" />
     <footer-section />
@@ -23,5 +23,11 @@ export default {
   padding: 0;
   border: 0;
   margin: 0;
+}
+
+.app-shell {
+  background: var(--bg);
+  color: var(--ink);
+  transition: background-color 0.3s, color 0.3s;
 }
 </style>
