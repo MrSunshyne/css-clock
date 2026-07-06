@@ -58,7 +58,7 @@ export default {
     this.now();
     this.timer = setInterval(this.now, TICK_MS);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearInterval(this.timer);
   },
 };
