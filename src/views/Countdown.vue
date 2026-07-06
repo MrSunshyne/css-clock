@@ -1,9 +1,9 @@
 <template>
   <div class="countdown items-center grid justify-center relative">
     <div class="absolute top-0 left-0">
-      <input type="text" v-model="countdownDuration" class="border rounded-full text-3xl  w-24 text-center" @click="stop()" />
+      <input type="text" inputmode="numeric" v-model.number="countdownDuration" class="border rounded-full text-3xl  w-24 text-center" @click="stop()" />
     </div>
-    <VueCountdown :time="countdown" @end="start()" >
+    <VueCountdown v-if="countdown > 0" :time="countdown" @end="start()" >
       <template slot-scope="props">
         <div
              class="clock-frame grid grid-cols-2 lg:grid-cols-6 justify-center items-center">
@@ -37,7 +37,9 @@ export default {
   },
   computed: {
     countdown() {
-      return this.countdownDuration * 60 * 1000;
+      // careful: `Number` is the digit component in this file, not the global
+      const minutes = parseFloat(this.countdownDuration);
+      return minutes > 0 ? minutes * 60 * 1000 : 0;
     }
   },
   methods: {
