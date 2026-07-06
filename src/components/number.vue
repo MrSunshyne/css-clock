@@ -1,7 +1,7 @@
 <template>
   <div class="digit">
     <div
-      v-for="(hands, i) in cells"
+      v-for="(hands, i) in angles"
       :key="i"
       :style="{ '--before-angle': hands[0] + 'deg', '--after-angle': hands[1] + 'deg' }"
     ></div>
@@ -96,6 +96,11 @@ const DIGITS = {
   ],
 };
 
+// Smallest signed turn (in degrees) that takes a hand from one angle to another.
+function shortestTurn(from, to) {
+  return ((((to - from) % 360) + 540) % 360) - 180;
+}
+
 export default {
   props: {
     digit: {
@@ -103,9 +108,21 @@ export default {
       default: 0
     }
   },
-  computed: {
-    cells() {
-      return DIGITS[this.digit] || DIGITS[0];
+  data() {
+    return {
+      // Cumulative angles per cell. The CSS transition follows the numeric
+      // value, so by only ever moving each hand by its shortest turn we avoid
+      // hands spinning the long way round (e.g. 270deg -> 0deg used to travel
+      // backwards through 270deg instead of forwards through 90deg).
+      angles: (DIGITS[this.digit] || DIGITS[0]).map(hands => hands.slice())
+    };
+  },
+  watch: {
+    digit(value) {
+      const target = DIGITS[value] || DIGITS[0];
+      this.angles = this.angles.map((hands, i) =>
+        hands.map((angle, j) => angle + shortestTurn(angle, target[i][j]))
+      );
     }
   }
 };
