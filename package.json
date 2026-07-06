@@ -4,21 +4,18 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "deploy-gh": "npm run build && git add -A && git commit -m 'generated using npm run deploy-gh' &&  git push -u origin master"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^1.1.5",
     "core-js": "^3.24.1",
     "vue": "^2.7.9",
     "vue-confetti": "^2.3.0",
-    "vue-router": "^3.5.4",
-    "vuex": "^3.6.2"
+    "vue-router": "^3.5.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.19",
     "@vue/cli-plugin-router": "^4.5.19",
-    "@vue/cli-plugin-vuex": "^4.5.19",
     "@vue/cli-service": "^4.5.19",
     "prettier": "^1.19.1",
     "sass": "^1.54.4",
