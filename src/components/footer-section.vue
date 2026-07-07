@@ -7,7 +7,7 @@
       <p>
         A css-based clock animation inspired by a real-life clock.
         <a
-          class="underline hover:text-gray-800"
+          class="underline hover:opacity-75"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.humanssince1982.com/"
