@@ -212,6 +212,9 @@ export default {
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    /* the wide right padding only exists to clear the fallback
+       background-image chevron; here the icon is a real element */
+    padding-inline-end: 0.75rem;
   }
 
   .panel select::picker-icon {
