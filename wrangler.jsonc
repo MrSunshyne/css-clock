@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "css-clock",
+  "account_id": "fb66afc37aeaf7f732b01ea9efb61ab2",
+  "compatibility_date": "2026-07-01",
+  // Static site: no Worker script, just the built assets with SPA routing
+  // (deep links like /countdown fall back to index.html).
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "clock.ramgolam.com", "custom_domain": true }
+  ]
+}
