@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import Countdown from "../views/Countdown.vue";
 
 const routes = [
   {
@@ -9,9 +8,9 @@ const routes = [
     component: Home
   },
   {
+    // The countdown lives on the home page now (Mode in the control panel)
     path: "/countdown",
-    name: "countdown",
-    component: Countdown
+    redirect: "/"
   }
 ];
 

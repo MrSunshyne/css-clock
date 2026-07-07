@@ -3,6 +3,26 @@
     <transition name="panel">
       <div v-if="open" class="panel rounded-lg p-4 mb-3 shadow-lg space-y-3">
         <label class="row">
+          <span>Mode</span>
+          <select v-model="settings.mode">
+            <option value="clock">Clock</option>
+            <option value="timer">Countdown</option>
+          </select>
+        </label>
+
+        <template v-if="settings.mode === 'timer'">
+          <label class="row">
+            <span>Duration</span>
+            <input type="number" min="0.1" step="0.5" v-model.number="settings.timerMinutes" />
+            <span class="val">min</span>
+          </label>
+
+          <button class="btn rounded w-full py-1" @click="restartTimer">
+            Restart countdown
+          </button>
+        </template>
+
+        <label class="row" v-if="settings.mode === 'clock'">
           <span>Refresh every</span>
           <input type="range" min="1" max="15" step="1" v-model.number="settings.tickSeconds" />
           <span class="val">{{ settings.tickSeconds }}s</span>
@@ -32,7 +52,7 @@
           </select>
         </label>
 
-        <label class="row">
+        <label class="row" v-if="settings.mode === 'clock'">
           <span>24-hour time</span>
           <input type="checkbox" v-model="settings.hourFormat24" />
         </label>
@@ -47,7 +67,7 @@
           <input type="checkbox" v-model="settings.showFaces" />
         </label>
 
-        <button class="reset rounded w-full py-1" @click="resetSettings">
+        <button class="btn rounded w-full py-1" @click="resetSettings">
           Reset to defaults
         </button>
       </div>
@@ -68,7 +88,7 @@
 </template>
 
 <script>
-import { settings, resetSettings } from "../settings";
+import { settings, resetSettings, restartTimer } from "../settings";
 
 export default {
   data() {
@@ -79,6 +99,7 @@ export default {
   },
   methods: {
     resetSettings,
+    restartTimer,
   },
 };
 </script>
@@ -109,12 +130,18 @@ export default {
       height: 1rem;
     }
 
-    select {
+    select,
+    input[type="number"] {
       background: var(--bg);
       color: inherit;
       border: 1px solid var(--face-outline);
       border-radius: 0.25rem;
       padding: 0.15rem 0.3rem;
+    }
+
+    input[type="number"] {
+      width: 4.5rem;
+      text-align: right;
     }
 
     .val {
@@ -124,7 +151,7 @@ export default {
     }
   }
 
-  .reset {
+  .btn {
     border: 1px solid var(--face-outline);
 
     &:hover {
