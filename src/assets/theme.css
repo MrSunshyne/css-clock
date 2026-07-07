@@ -31,3 +31,9 @@
   --face-outline: #4a5568;
   --panel: #2d3748;
 }
+
+/* "Show clock faces" toggle in the control panel.
+   !important outranks the component's scoped border rule. */
+.hide-faces .digit > div {
+  border-color: transparent !important;
+}

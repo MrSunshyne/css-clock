@@ -153,7 +153,7 @@ export default {
       top: 50%;
       left: 50%;
       transform-origin: left center;
-      transition: transform var(--speed, 5s) linear;
+      transition: transform var(--speed, 5s) var(--easing, linear);
     }
 
     &:before {
