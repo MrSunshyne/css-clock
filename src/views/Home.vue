@@ -78,9 +78,9 @@ import VueCountdown from "@chenfengyuan/vue-countdown";
 import Number from "../components/number.vue";
 import { settings } from "../settings";
 
-// The pieces are off screen well before the full animation ends, so the
-// reveal can start a little early for the overlap drama.
-const REVEAL_AFTER_MS = 1200;
+// The reveal starts while the last pieces are still bouncing, for the
+// overlap drama.
+const REVEAL_AFTER_MS = 1600;
 
 export default {
   name: "home",
@@ -154,16 +154,46 @@ export default {
       this.timer = setInterval(this.now, settings.tickSeconds * 1000);
     },
     celebrate() {
-      // Every little clock face gets its own blast trajectory, handed to the
-      // CSS keyframes as custom properties.
-      this.$el.querySelectorAll(".clock-frame .digit > div").forEach((cell) => {
-        const drift = (Math.random() * 2 - 1) * (120 + Math.random() * 320);
-        const lift = -(30 + Math.random() * 140);
-        const spin = (Math.random() * 2 - 1) * (180 + Math.random() * 540);
+      // A shockwave ripples out from a blast point near the centre of the
+      // clock: pieces further out detonate later, pieces closer get kicked
+      // harder, and everything flies radially away from the blast. Each
+      // cell's trajectory is handed to the CSS keyframes as custom props.
+      const frame = this.$el.querySelector(".clock-frame");
+      const frameRect = frame.getBoundingClientRect();
+      const homeRect = this.$el.getBoundingClientRect();
+      const originX = frameRect.left + frameRect.width * (0.4 + Math.random() * 0.2);
+      const originY = frameRect.top + frameRect.height * (0.4 + Math.random() * 0.2);
+      const maxDist = Math.hypot(
+        Math.max(originX - frameRect.left, frameRect.right - originX),
+        Math.max(originY - frameRect.top, frameRect.bottom - originY)
+      );
+
+      frame.querySelectorAll(".digit > div").forEach((cell) => {
+        const rect = cell.getBoundingClientRect();
+        const dx = rect.left + rect.width / 2 - originX;
+        const dy = rect.top + rect.height / 2 - originY;
+        const dist = Math.hypot(dx, dy) || 1;
+        const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.6;
+
+        // wave front + a little per-piece fuse jitter
+        const delay = (dist / maxDist) * 380 + Math.random() * 90;
+        // the blast hits nearby pieces hardest
+        const power = 220 + 420 * Math.max(0, 1 - dist / maxDist) + Math.random() * 120;
+        const drift = Math.cos(angle) * power;
+        // radial vertical kick blended with an upward pop
+        const lift = Math.sin(angle) * power * 0.4 - (30 + Math.random() * 90);
+        // how far this piece falls before hitting the "floor" (page bottom)
+        const floor = Math.max(40, homeRect.bottom - rect.bottom);
+        const bounce = 30 + Math.random() * 70 + power * 0.08;
+        // spin follows the direction of travel, like a rolling shard
+        const spin = drift * (0.8 + Math.random() * 0.8);
+
         cell.style.setProperty("--drift", `${Math.round(drift)}px`);
         cell.style.setProperty("--lift", `${Math.round(lift)}px`);
+        cell.style.setProperty("--floor", `${Math.round(floor)}px`);
+        cell.style.setProperty("--bounce", `${Math.round(bounce)}px`);
         cell.style.setProperty("--spin", `${Math.round(spin)}deg`);
-        cell.style.setProperty("--blast-delay", `${Math.round(Math.random() * 150)}ms`);
+        cell.style.setProperty("--blast-delay", `${Math.round(delay)}ms`);
       });
       this.finale = "exploding";
       this.finaleTimer = setTimeout(() => {
@@ -198,32 +228,71 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* While the finale plays, clip so the falling pieces exit cleanly instead of
-   growing the page. */
+/* While the finale plays, clip so the flying pieces exit cleanly instead of
+   growing the page, and give the whole stage a jolt at detonation. */
 .finale-active {
   overflow: clip;
+  animation: home-shake 0.45s linear;
+}
+
+@keyframes home-shake {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  20% {
+    translate: 5px -3px;
+  }
+  40% {
+    translate: -6px 2px;
+  }
+  60% {
+    translate: 4px 3px;
+  }
+  80% {
+    translate: -3px -2px;
+  }
 }
 
 .clock-frame.exploding :deep(.digit > div) {
-  animation: cell-explode 1.6s forwards;
+  animation: cell-explode 2.1s forwards;
   animation-delay: var(--blast-delay, 0ms);
 }
 
-/* Pop up and outwards, then gravity wins. Trajectory comes from the per-cell
+/* Launch away from the blast, arc under gravity, hit the floor, one damped
+   bounce, then slide to rest and fade. Trajectory comes from the per-cell
    custom properties set when the countdown ends. */
 @keyframes cell-explode {
   0% {
     translate: 0 0;
     rotate: 0deg;
+    opacity: 1;
     animation-timing-function: cubic-bezier(0.2, 0.9, 0.35, 1);
   }
-  25% {
-    translate: calc(var(--drift) * 0.35) var(--lift);
-    animation-timing-function: cubic-bezier(0.55, 0.05, 0.8, 0.4);
+  /* peak of the launch arc */
+  22% {
+    translate: calc(var(--drift) * 0.3) var(--lift);
+    animation-timing-function: cubic-bezier(0.45, 0.05, 0.85, 0.4);
   }
+  /* first floor hit */
+  55% {
+    translate: calc(var(--drift) * 0.65) var(--floor);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.5, 1);
+  }
+  /* damped bounce */
+  72% {
+    translate: calc(var(--drift) * 0.82) calc(var(--floor) - var(--bounce));
+    animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.5);
+  }
+  86% {
+    translate: calc(var(--drift) * 0.93) var(--floor);
+    opacity: 1;
+  }
+  /* slide to rest and fade out */
   100% {
-    translate: var(--drift) 110vh;
+    translate: var(--drift) var(--floor);
     rotate: var(--spin);
+    opacity: 0;
   }
 }
 
